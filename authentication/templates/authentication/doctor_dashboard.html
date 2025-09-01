@@ -1,0 +1,22 @@
+{% extends 'authentication/base.html' %}
+
+{% block content %}
+<h2>Doctor Dashboard</h2>
+<div>
+    <h3>Your Profile Information</h3>
+    <p><strong>Name:</strong> Dr. {{ user.first_name }} {{ user.last_name }}</p>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    {% if user.profile_picture %}
+        <p><strong>Profile Picture:</strong><br>
+        <img src="{{ user.profile_picture.url }}" alt="Profile Picture" width="100"></p>
+    {% endif %}
+    
+    <h3>Your Address</h3>
+    {% if address %}
+        <p>{{ address.line1 }}, {{ address.city }}, {{ address.state }} - {{ address.pincode }}</p>
+    {% else %}
+        <p>No address information available.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'authentication/base.html' %}
+
+{% block content %}
+<h2>Welcome to Healthcare Portal</h2>
+<p>Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'signup' %}">create an account</a> to continue.</p>
+
+<div style="margin-top: 30px;">
+    <h3>Are you a Patient?</h3>
+    <p>Access your medical records, schedule appointments, and communicate with your doctors.</p>
+    <a href="{% url 'signup' %}?type=patient" class="btn">Sign up as Patient</a>
+</div>
+
+<div style="margin-top: 30px;">
+    <h3>Are you a Doctor?</h3>
+    <p>Manage your patients, view medical histories, and provide healthcare services.</p>
+    <a href="{% url 'signup' %}?type=doctor" class="btn">Sign up as Doctor</a>
+</div>
+{% endblock %}
