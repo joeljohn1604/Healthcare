@@ -1,0 +1,99 @@
+{% extends 'authentication/base.html' %}
+
+{% block content %}
+<div class="nav">
+    <h1>My Blog Posts</h1>
+    <div>
+        <a href="{% url 'create_blog_post' %}" class="btn">Create New Post</a>
+        <a href="{% url 'blog_list' %}" class="btn">View Blog</a>
+        
+    </div>
+</div>
+
+<div class="blog-posts">
+    {% for post in blog_posts %}
+    <div class="blog-card">
+        {% if post.image %}
+        <img src="{{ post.image.url }}" alt="{{ post.title }}">
+        {% endif %}
+        <div class="blog-content">
+            <h3>{{ post.title }}</h3>
+            <p class="category">{{ post.category.name }}</p>
+            <p class="summary">{{ post.truncated_summary }}</p>
+            <p class="status {{ post.status }}">{{ post.status|title }}</p>
+            <p class="date">{{ post.created_at|date:"M d, Y" }}</p>
+            <br>
+            {% if post.slug %}
+            <a href="{% url 'blog_detail' post.slug %}" class="btn">View Post</a>
+            {% else %}
+            <span class="btn" style="background-color: #ccc; cursor: not-allowed;">No Slug</span>
+
+            {% endif %}
+        </div>
+    </div>
+    {% empty %}
+    <p>No blog posts yet. <a href="{% url 'create_blog_post' %}">Create your first post</a></p>
+    {% endfor %}
+</div>
+
+<style>
+    .blog-posts {
+        display: grid;
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .blog-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+    }
+
+    .blog-card img {
+        width: 200px;
+        height: 150px;
+        object-fit: cover;
+    }
+
+    .blog-content {
+        padding: 20px;
+        flex: 1;
+    }
+
+    .category {
+        color: #666;
+        font-size: 14px;
+        margin: 5px 0;
+    }
+
+    .summary {
+        color: #333;
+        margin: 10px 0;
+    }
+
+    .status {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .status.draft {
+        background-color: #ff9800;
+        color: white;
+    }
+
+    .status.published {
+        background-color: #4caf50;
+        color: white;
+    }
+
+    .date {
+        color: #666;
+        font-size: 14px;
+        margin: 5px 0;
+    }
+</style>
+{% endblock %}

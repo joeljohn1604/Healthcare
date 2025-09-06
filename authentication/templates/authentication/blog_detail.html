@@ -1,0 +1,82 @@
+{% extends 'authentication/base.html' %}
+
+{% block content %}
+<div class="nav">
+    <h1>{{ blog_post.title }}</h1>
+    <div>
+        <a href="{% url 'blog_list' %}" class="btn">Back to Blog</a>
+        {% if user == blog_post.author %}
+        <a href="{% url 'my_blog_posts' %}" class="btn">My Posts</a>
+        {% endif %}
+    </div>
+</div>
+
+<article class="blog-detail">
+    {% if blog_post.image %}
+    <img src="{{ blog_post.image.url }}" alt="{{ blog_post.title }}" class="blog-image">
+    {% endif %}
+    
+    <div class="blog-meta">
+        <span class="category">{{ blog_post.category.name }}</span>
+        <span class="author">By Dr. {{ blog_post.author.get_full_name }}</span>
+        <span class="date">{{ blog_post.created_at|date:"M d, Y" }}</span>
+    </div>
+    
+    <div class="blog-summary">
+        <h3>Summary</h3>
+        <p>{{ blog_post.summary }}</p>
+    </div>
+    
+    <div class="blog-content">
+        {{ blog_post.content|safe }}
+    </div>
+</article>
+
+<style>
+.blog-detail {
+    max-width: 800px;
+    margin: 30px auto;
+}
+
+.blog-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.blog-meta {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    color: #666;
+    font-size: 14px;
+}
+
+.blog-summary {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.blog-summary h3 {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+.blog-content {
+    line-height: 1.6;
+}
+
+.blog-content h2, .blog-content h3 {
+    color: #2c3e50;
+    margin-top: 30px;
+}
+
+.blog-content p {
+    margin-bottom: 15px;
+}
+</style>
+{% endblock %}

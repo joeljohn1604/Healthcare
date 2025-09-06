@@ -1,0 +1,36 @@
+{% extends 'authentication/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="nav">
+    <h1>Create New Blog Post</h1>
+    <div>
+        <a href="{% url 'my_blog_posts' %}" class="btn">My Posts</a>
+        <a href="{% url 'blog_list' %}" class="btn">View Blog</a>
+    </div>
+</div>
+<br>
+
+<form method="post" enctype="multipart/form-data" class="blog-form">
+    {% csrf_token %}
+    
+    {% for field in form %}
+    <div class="form-group">
+        {{ field.label_tag }}
+        {{ field }}
+        {% if field.errors %}
+            <div class="error">{{ field.errors }}</div>
+        {% endif %}
+    </div>
+    {% endfor %}
+    
+    <button type="submit" class="btn">Create Post</button>
+</form>
+
+<style>
+.blog-form {
+    max-width: 800px;
+    margin: 0 auto;
+}
+</style>
+{% endblock %}

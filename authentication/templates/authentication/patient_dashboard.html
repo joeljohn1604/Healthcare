@@ -8,15 +8,23 @@
     <p><strong>Username:</strong> {{ user.username }}</p>
     <p><strong>Email:</strong> {{ user.email }}</p>
     {% if user.profile_picture %}
-        <p><strong>Profile Picture:</strong><br>
-        <img src="{{ user.profile_picture.url }}" alt="Profile Picture" width="100"></p>
+    <p><strong>Profile Picture:</strong><br>
+        <img src="{{ user.profile_picture.url }}" alt="Profile Picture" width="100">
+    </p>
     {% endif %}
-    
+
     <h3>Your Address</h3>
     {% if address %}
-        <p>{{ address.line1 }}, {{ address.city }}, {{ address.state }} - {{ address.pincode }}</p>
+    <p>{{ address.line1 }}, {{ address.city }}, {{ address.state }} - {{ address.pincode }}</p>
     {% else %}
-        <p>No address information available.</p>
+    <p>No address information available.</p>
     {% endif %}
+
+    <!-- Add this to your patient dashboard -->
+    <div style="margin-top: 30px;">
+        <h3>Health Blog</h3>
+        <p>Read informative articles from our doctors</p>
+        <a href="{% url 'blog_list' %}" class="btn">View Blog</a>
+    </div>
 </div>
 {% endblock %}
